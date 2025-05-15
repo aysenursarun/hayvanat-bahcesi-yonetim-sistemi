@@ -1,0 +1,259 @@
+﻿@model IEnumerable<proje1.Models.Enclousers>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoo Management Database - Enclosures</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(175, 174, 181);
+            background-position: center;
+            background-blend-mode: overlay;
+            background-size: cover;
+        }
+
+        .header {
+            background-color: #1d5c1e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+            .header .logout {
+                position: absolute;
+                right: 20px;
+                top: 15px;
+            }
+
+                .header .logout a {
+                    color: white;
+                    text-decoration: none;
+                    padding: 10px 15px;
+                    background-color: #ff5c5c;
+                    border-radius: 5px;
+                    transition: background-color 0.3s ease-in-out;
+                }
+
+                    .header .logout a:hover {
+                        background-color: #e04b4b;
+                    }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+            .navbar a {
+                padding: 10px 15px;
+                text-decoration: none;
+                color: white;
+                margin: 0 5px;
+                border-radius: 5px;
+                transition: background-color 0.3s ease-in-out;
+            }
+
+                .navbar a:hover {
+                    background-color: #575757;
+                }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+            .content h2 {
+                font-size: 50px;
+                color: white;
+            }
+
+            .content table {
+                width: 80%;
+                margin: 0 auto;
+                border-collapse: collapse;
+            }
+
+            .content table, .content th, .content td {
+                border: 1px solid white;
+            }
+
+            .content th, .content td {
+                padding: 10px;
+                text-align: left;
+                color: white;
+            }
+
+            .content th {
+                background-color: #1d5c1e;
+            }
+
+            .content tr:nth-child(even) {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+        .form-container {
+            background-color: #1d5c1e;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            width: 50%;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+            .form-container input, .form-container select {
+                width: calc(100% - 22px);
+                padding: 10px;
+                margin: 5px 0;
+                border: none;
+                border-radius: 3px;
+            }
+
+            .form-container button {
+                background-color: #333;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease-in-out;
+            }
+
+                .form-container button:hover {
+                    background-color: #575757;
+                }
+
+        .action-buttons {
+            background-color: #d9534f;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+            .action-buttons:hover {
+                background-color: #c9302c;
+            }
+
+        .create-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+            .create-button:hover {
+                background-color: #0056b3;
+            }
+
+        .footer {
+            background-color: #1d5c1e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Zoo Management Database</h1>
+        <div class="logout">
+            <a href="@Url.Action("Login", "Home")">Log Out</a>
+        </div>
+    </div>
+    <div class="navbar">
+        <a href="@Url.Action("Index", "Home")">Homepage</a>
+        <a href="@Url.Action("Index", "Animals")">Animals</a>
+        <a href="@Url.Action("Index", "Animal_Types")">Animal Types</a>
+        <a href="@Url.Action("Index", "Enclousers")">Enclousers</a>
+        <a href="@Url.Action("Index", "Caretakers")">Caretakers</a>
+        <a href="@Url.Action("Index", "Caretakers_Teams")">Caretaker Teams</a>
+        <a href="@Url.Action("Index", "Visiting_Hours")">Visiting Hours</a>
+
+    </div>
+    <div class="content">
+        <h2>Enclosures</h2>
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "create-button" })
+        </p>
+        <table class="table" id="enclosureTable">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Capacity)</th>
+                <th>@Html.DisplayNameFor(model => model.Visiting_Hours_ID)</th>
+                <th>Action</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Capacity)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Visiting_Hours_ID)</td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.ID })" class="action-buttons">Edit</a>
+                        <a href="@Url.Action("Details", new { id = item.ID })" class="action-buttons">Details</a>
+                        <a href="@Url.Action("Delete", new { id = item.ID })" class="action-buttons">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Zoo Management Database. All rights reserved.</p>
+    </div>
+
+    <script>
+        function addEnclosure() {
+            const enclosureId = document.getElementById('enclosureId').value;
+            const enclosureName = document.getElementById('enclosureName').value;
+            const capacity = document.getElementById('capacity').value;
+            const visitingId = document.getElementById('visitingId').value;
+
+            if (enclosureId && enclosureName && capacity && visitingId) {
+                const table = document.getElementById('enclosureTable');
+                const row = table.insertRow();
+
+                row.insertCell(0).innerText = enclosureId;
+                row.insertCell(1).innerText = enclosureName;
+                row.insertCell(2).innerText = capacity;
+                row.insertCell(3).innerText = visitingId;
+
+                const actionsCell = row.insertCell(4);
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Delete';
+                deleteButton.className = 'action-buttons';
+                deleteButton.addEventListener('click', () => deleteEnclosure(row));
+
+                actionsCell.appendChild(deleteButton);
+
+                document.getElementById('enclosureForm').reset();
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+
+        function deleteEnclosure(row) {
+            row.remove();
+        }
+    </script>
+</body>
+</html>

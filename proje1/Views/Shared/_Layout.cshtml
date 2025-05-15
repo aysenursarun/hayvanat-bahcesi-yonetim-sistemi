@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Zoo Management</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+
+        /* General Navbar Styling */
+        .navbar {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        /* User Info Section */
+        .user-info {
+            background-color: #007bff; /* Blue background for user info */
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 0.25rem;
+            margin-right: 1rem; /* Add space between user info and logout */
+        }
+
+            .user-info .nav-link {
+                color: white; /* Ensure text is white */
+            }
+
+        /* Logout Button */
+        .logout-link {
+            background-color: #dc3545; /* Orange background for logout */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    @if (Session["AccessCode"] != null && (int)Session["AccessCode"] == 1)
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Animals", "Index", "Animals", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Animal Types", "Index", "Animal_Types", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Caretakers", "Index", "Caretakers", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Caretaker Teams", "Index", "Caretakers_Teams", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Enclousers", "Index", "Enclousers", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Visiting Hours", "Index", "Visiting_Hours", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+
+                    }
+
+                   
+                    @if (Session["Username"] != null)
+                    {
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Animals", "Index", "Animals", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Animal Types", "Index", "Animal_Types", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Caretaker Teams", "Index", "Caretakers_Teams", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Enclousers", "Index", "Enclousers", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Visiting Hours", "Index", "Visiting_Hours", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        
+                    }
+                   
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

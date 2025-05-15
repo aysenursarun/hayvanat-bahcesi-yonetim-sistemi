@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Animal Types">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Animals">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="Gender" Type="text" Nullable="false" />
+    <Property Name="Enclosure_ID" Type="int" Nullable="false" />
+    <Property Name="AnimalType_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Caretakers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="Surname" Type="text" Nullable="false" />
+    <Property Name="Gender" Type="text" Nullable="false" />
+    <Property Name="Birthdate" Type="date" />
+    <Property Name="Phone" Type="varchar" MaxLength="10" />
+    <Property Name="Address" Type="text" Nullable="false" />
+    <Property Name="User_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Caretakers_Teams">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Caretaker_ID" Type="int" Nullable="false" />
+    <Property Name="Animal_Type_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Enclousers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="Capacity" Type="int" Nullable="false" />
+    <Property Name="Visiting_Hours_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Surname" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Username" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Role" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Visiting Hours">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Start_Time" Type="time" Precision="7" Nullable="false" />
+    <Property Name="End_Time" Type="time" Precision="7" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Animals_Animal Types">
+    <End Role="Animal Types" Type="Self.Animal Types" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Animal Types">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Animals">
+        <PropertyRef Name="AnimalType_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Animals_Enclousers">
+    <End Role="Enclousers" Type="Self.Enclousers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Enclousers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Animals">
+        <PropertyRef Name="Enclosure_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Caretakers_Teams_Animal Types">
+    <End Role="Animal Types" Type="Self.Animal Types" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Caretakers_Teams" Type="Self.Caretakers_Teams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Animal Types">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Caretakers_Teams">
+        <PropertyRef Name="Animal_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Caretakers_Teams_Caretakers">
+    <End Role="Caretakers" Type="Self.Caretakers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Caretakers_Teams" Type="Self.Caretakers_Teams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Caretakers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Caretakers_Teams">
+        <PropertyRef Name="Caretaker_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Enclousers_Visiting Hours">
+    <End Role="Visiting Hours" Type="Self.Visiting Hours" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Enclousers" Type="Self.Enclousers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Visiting Hours">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Enclousers">
+        <PropertyRef Name="Visiting_Hours_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="ProjectModelStoreContainer">
+    <EntitySet Name="Animal Types" EntityType="Self.Animal Types" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Animals" EntityType="Self.Animals" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Caretakers" EntityType="Self.Caretakers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Caretakers_Teams" EntityType="Self.Caretakers_Teams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Enclousers" EntityType="Self.Enclousers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Visiting Hours" EntityType="Self.Visiting Hours" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Animals_Animal Types" Association="Self.FK_Animals_Animal Types">
+      <End Role="Animal Types" EntitySet="Animal Types" />
+      <End Role="Animals" EntitySet="Animals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Animals_Enclousers" Association="Self.FK_Animals_Enclousers">
+      <End Role="Enclousers" EntitySet="Enclousers" />
+      <End Role="Animals" EntitySet="Animals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Caretakers_Teams_Animal Types" Association="Self.FK_Caretakers_Teams_Animal Types">
+      <End Role="Animal Types" EntitySet="Animal Types" />
+      <End Role="Caretakers_Teams" EntitySet="Caretakers_Teams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Caretakers_Teams_Caretakers" Association="Self.FK_Caretakers_Teams_Caretakers">
+      <End Role="Caretakers" EntitySet="Caretakers" />
+      <End Role="Caretakers_Teams" EntitySet="Caretakers_Teams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Enclousers_Visiting Hours" Association="Self.FK_Enclousers_Visiting Hours">
+      <End Role="Visiting Hours" EntitySet="Visiting Hours" />
+      <End Role="Enclousers" EntitySet="Enclousers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

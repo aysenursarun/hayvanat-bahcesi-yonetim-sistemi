@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="00abd31a28ad4c1581ec9bc3372334b6" Name="Diagram1">
+        <EntityTypeShape EntityType="ProjectModel.Animal_Types" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Animals" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Caretakers" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Caretakers_Teams" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Enclousers" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Users" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Visiting_Hours" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="ProjectModel.FK_Animals_Animal_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.FK_Caretakers_Teams_Animal_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.FK_Animals_Enclousers" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.FK_Caretakers_Teams_Caretakers" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.FK_Enclousers_Visiting_Hours" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

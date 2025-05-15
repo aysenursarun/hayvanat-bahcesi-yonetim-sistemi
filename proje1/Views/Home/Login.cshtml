@@ -1,0 +1,359 @@
+﻿@model proje1.Models.Users
+@{
+    ViewBag.Title = "Login";
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sevimli Dostlar Doğa Parkı</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #333;
+            color: white;
+            padding-bottom: 60px;
+        }
+
+        .navbar {
+            background-color: #215E21;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+            .content-section.active {
+                display: block;
+            }
+
+        #about .container img {
+            width: 40%;
+            object-fit: cover;
+            padding: 5px;
+        }
+
+        #home .container img {
+            width: 100%;
+            height: 400px; /* Belirli bir yükseklik, resimler bu yüksekliği alacak */
+            object-fit: cover; /* Resimleri keserek boyutlandırır, orijinal oranlarını bozmadan */
+        }
+
+        #whatsapp-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 9999; /* Z-index değerini yüksek yapıyoruz */
+            width: 60px;
+            height: 60px;
+        }
+
+            #whatsapp-icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border-radius: 50%;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            #whatsapp-icon:hover {
+                transform: scale(1.1);
+            }
+    </style>
+    <script>
+        function showContent(sectionId) {
+            var sections = document.querySelectorAll('.content-section');
+            sections.forEach(function (section) {
+                section.classList.remove('active');
+            });
+            var section = document.getElementById(sectionId);
+            section.classList.add('active');
+        }
+        window.onload = function () {
+            showContent('home');
+        };
+    </script>
+</head>
+<body class="bg-dark text-white text-center">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Sevimli Dostlar Doğa Parkı</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);" onclick="showContent('home')">Anasayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);" onclick="showContent('about')">Hakkımızda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);" onclick="showContent('ticket')">Bilet Fiyatları</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);" onclick="showContent('before-park')">Parka Gelmeden Önce</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);" onclick="showContent('contact')">İletişim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);" onclick="showContent('admin-login')">Admin Giriş</a>
+                    </li>
+                </ul>
+
+                <!-- Hata Mesajı -->
+                <div id="error-message" style="color: red; z-index: 1000; position: absolute; top: 20px; right: 20px; display: @(ViewData.ModelState.IsValid ? "none" : "block"); background-color: white; border: 1px solid red; padding: 8px; border-radius: 7px;">
+                    @Html.ValidationSummary(false, "", new { @class = "" })
+                </div>
+
+                <script>
+                    window.onload = function () {
+                        var errorMessage = document.getElementById("error-message");
+                        if (errorMessage.style.display === "block") {
+                            setTimeout(function () {
+                                errorMessage.style.display = "none";
+                            }, 5000); // 5000 milisaniye = 5 saniye
+                        }
+                    };
+                </script>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <div id="home" class="content-section active mt-5 pt-5">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="">
+                    <h2 class="display-4">SEVİMLİ DOSTLAR DOĞA PARKI</h2>
+                    <p class="lead">
+                        Sevimli Dostlar Doğa Parkı'na hoş geldiniz! Şehir merkezine yalnızca 15 dakika uzaklıkta, doğal hayatın içinde benzersiz bir yolculuğa çıkmaya hazır olun. Burada, vahşi yaşamı gözlemleyebilir, doğanın sunduğu huzuru keşfederken heyecan verici aktivitelerle keyifli bir gün geçirebilirsiniz.
+                    </p>
+                    <h2 class="mt-4">Park Ziyaret Saatleri</h2>
+                    <p class="lead">Parkımız haftanın her günü 09:00 - 18:00 saatleri arasında açıktır.</p>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <!-- Yeni Başlık ve Hayvan Resimleri -->
+        <div class="container mt-4">
+            <h2 class="display-4">Sizi Bekliyorlar!</h2>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="~/Images/aslan.jpg" alt="Hayvan 1" class="img-fluid rounded shadow">
+                    <p class="lead">Aslanlar, doğanın en güçlü yırtıcılarından biridir. Kralları olarak bilinirler!</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="~/Images/zebra.jpg" alt="Hayvan 2" class="img-fluid rounded shadow">
+                    <p class="lead">Zebralar, eşsiz siyah ve beyaz çizgileri ile tanınan sevimli memelilerdir.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="~/Images/gergedan.jpg" alt="Hayvan 3" class="img-fluid rounded shadow">
+                    <p class="lead">Gergedanlar, kalın derileri ve güçlü yapıları ile bilinen büyük memelilerdir.</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <img src="~/Images/fil.jpg" alt="Hayvan 4" class="img-fluid rounded shadow">
+                    <p class="lead">Filler, dünyanın en büyük kara hayvanlarıdır ve büyük kulakları ile bilinirler.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="~/Images/kaplan.jpg" alt="Hayvan 5" class="img-fluid rounded shadow">
+                    <p class="lead">Kaplanlar, güçlü kasları ve etkileyici çizgileriyle dikkat çekerler.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="~/Images/maymun.jpg" alt="Hayvan 6" class="img-fluid rounded shadow">
+                    <p class="lead">Maymunlar, zeki ve sosyal hayvanlardır.</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <img src="~/Images/zürafa.jpg" alt="Hayvan 7" class="img-fluid rounded shadow">
+                    <p class="lead">Zürafalar, uzun boyunları ve zarif duruşları ile bilinir.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="~/Images/kanguru.jpg" alt="Hayvan 8" class="img-fluid rounded shadow">
+                    <p class="lead">Kangurular, güçlü arka bacakları ve uzun kuyruklarıyla ünlüdürler.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="~/Images/panda.jpg" alt="Hayvan 9" class="img-fluid rounded shadow">
+                    <p class="lead">Pandalar, sevimliliği ve bambu yemeleri ile tanınır.</p>
+                </div>
+            </div>
+            <br />
+            <h2 class="display-6">Ve daha fazlası..</h2>
+        </div>
+    </div>
+
+
+    <div id="about" class="content-section mt-5 pt-5">
+        <div class="container">
+            <h2 class="display-4">Hakkımızda</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Vizyon</h3>
+                    <p class="lead">Sevimli Dostlar Doğa Parkı, doğal yaşamı koruma ve ziyaretçilere vahşi doğayı tanıtma misyonuyla kurulmuştur. Her yaştan ziyaretçiye eğlenceli ve eğitici bir deneyim sunmayı hedefliyoruz.</p>
+                </div>
+                <div class="col-md-6">
+                    <h3>Misyon</h3>
+                    <p class="lead">Amacımız, ziyaretçilere doğal yaşamın önemini anlatmak ve bu konuda farkındalık yaratmaktır. Doğanın ve hayvanların korunması konusunda bilinçlendirici etkinlikler düzenliyoruz.</p>
+                </div>
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <h3 class="mt-1">Hayvan Koruma</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="~/Images/hakkimizda1.jpg" alt="IUCN" class="img-fluid rounded shadow">
+                    <br />
+                    <p class="lead">International Union for Conservation of Nature and Natural Resources (IUCN) - Doğa ve Doğal Kaynakların Korunması için Uluslararası Birlik</p>
+                    <p class="lead">Doğanın bütünlüğünün ve çeşitliliğinin korunması, doğal kaynakların adil ve ekolojik olarak süredürebilir olmasını sağlamak için dünya çapındaki toplumlara etki etmek, cesaretlendirmek ve onlara yardımcı olmak amacıyla 1948 yılında kurulmuş olan bir birliktir.</p>
+                    <p class="lead">IUCN tarafından Nesli Tükenme Tehlikesi Altında Olan Türlerin Kırmızı Listesi (IUCN Red List) yayınlanmaktadır.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="~/Images/hakkimizda2.jpg" alt="IUCN Red List" class="img-fluid rounded shadow">
+                    <br />
+                    <p class="lead">IUCN Kırmızı Listesi, kesin ölçüt kullanılarak, binlerce tür ve alttürlerin nesillerinin tükenme riskini değerlendirerek oluşturulmaktadır. Bu ölçüt tüm türlerle ve dünyanın her bölgesi ile ilgilidir.</p>
+                    <p class="lead">Kırmızı Liste ile amaçlanan; koruma meselelerine kamunun ve politikacıların dikkatini çekmek ve bununla birlikte türlerin yokoluşunu azaltmak için uluslararası camiaya yardım etmektir. Gücülü bir bilimsel altyapı ile oluşturulan IUCN Kırmızı Listesi, biolojik çeşitliliğin durumu ile iligli en geçerli rehber olarak kabul edilmektedir.</p>
+                    <p class="lead">Kategoriler 10 grupta tasnif edilmiştir; bu tasnifte, tükenme hızı, nüfus büyüklüğü, coğrafi dağılım alanları ile nüfüs ve dağılım derecesi kriterleri dikkate alınmıştır.</p>
+                </div>
+            </div>
+
+            <div style="text-align:left">
+                <h3 class="mt-5 korunma-durumu">Korunma Durumu Kategorileri</h3>
+                <ul class="lead">
+                    <li><strong>EX:</strong> (Tükenmiş): Kuşkuya yer bırakmayacak delillerle soyu tükenmiş olduğu ispatlanan türler.</li>
+                    <li><strong>EW:</strong> (Doğal ortamında tükenmiş): Vahşi yaşamda soyu tükenmiş, fakat diğer alanlarda (yetiştirme veya sergileme amaçlı) varlığını sürdüren türler.</li>
+                    <li><strong>CR:</strong> (Kritik tehlikede): Vahşi yaşamda soyu tükenme tehlikesi had safhada (extreme) olan türler.</li>
+                    <li><strong>EN:</strong> (Tehlikede): Vahşi yaşamda soyu tükenme tehlikesi çok büyük olan türler.</li>
+                    <li><strong>VU:</strong> (Hassas): Vahşi yaşamda soyu tükenme tehlikesi büyük olan türler.</li>
+                    <li><strong>NT:</strong> (Neredeyse tehdit altında): Şu anda tehlikede olmayan fakat yakın gelecekte VU, EN veya CR kategorisine girmeye aday olan türler.</li>
+                    <li><strong>LC:</strong> (Asgari endişe): Yaygın bulunan türler.</li>
+                    <li><strong>DD:</strong> (Yetersiz veri): Üzerinde yeterli bilgi bulunmayan türler.</li>
+                    <li><strong>NE:</strong> (Belirlenmedi): Şimdiye kadar yukardaki kriterlere uygunluğu değerlendirilmemiş türler.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticket Section -->
+    <div id="ticket" class="content-section mt-5 pt-5" style="text-align:left;">
+        <div class="container">
+            <h2 class="display-4">Bilet Fiyatları</h2>
+            <p class="lead">Hoş geldiniz! Hayvanat bahçemizde unutulmaz bir gün geçirmek için çeşitli bilet seçeneklerimiz mevcuttur:</p>
+            <ul class="lead">
+                <li><strong>Yetişkin Bilet (18+ yaş):</strong> ₺100</li>
+                <li><strong>Çocuk Bilet (3-17 yaş):</strong> ₺50</li>
+                <li><strong>Bebek Bilet (0-2 yaş):</strong> Ücretsiz</li>
+                <li><strong>Öğrenci ve 65+ Yaş Üstü Bilet:</strong> ₺75 (Geçerli kimlik kartı gösterilmelidir)</li>
+                <li><strong>Aile Paketi:</strong> ₺250 (2 yetişkin ve 2 çocuk)</li>
+            </ul>
+            <p class="lead">Haftanın belirli günlerinde ve özel etkinlikler sırasında indirimler ve kampanyalar olabilir. Güncel fiyatlar ve kampanyalar için web sitemizi takip etmeyi unutmayın!</p>
+        </div>
+    </div>
+
+    <!-- Before Park Section -->
+    <div id="before-park" class="content-section mt-5 pt-5">
+        <div class="container">
+            <h2 class="display-4">Parka Gelmeden Önce</h2>
+            <p class="lead">Parkımıza gelmeden önce, rahat bir ziyaret geçirmeniz için gerekli bilgilere göz atabilirsiniz.</p>
+
+            <!-- Park Map Image -->
+            <h3 class="mt-4">Park Krokisi</h3>
+            <img src="~/Images/kroki.png" alt="Park Krokisi" class="img-fluid rounded shadow">
+
+            <!-- Rules Section -->
+            <h3 class="mt-5">Hayvanat Bahçesi Kuralları</h3>
+            <p class="lead">Hayvanat bahçemizde tüm ziyaretçilerimizin ve hayvanlarımızın güvenliği ve huzuru için aşağıdaki kurallara uymanızı rica ediyoruz:</p>
+            <div style="text-align:left;">
+                <ul class="lead">
+                    <li><strong>Hayvanları Beslemeyin:</strong> Lütfen hayvanlara yiyecek vermeyin. Yanlış beslenme, sağlık sorunlarına yol açabilir.</li>
+                    <li><strong>Kafeslere ve Çitlere Dokunmayın:</strong> Hayvanların bulunduğu alanlara müdahale etmeyin. Bu, sizin ve hayvanların güvenliği için önemlidir.</li>
+                    <li><strong>Gürültü Yapmayın:</strong> Hayvanlar, yüksek sesten rahatsız olabilirler. Lütfen ses seviyenizi düşük tutun.</li>
+                    <li><strong>Çöp Atmayın:</strong> Çöplerinizi belirtilen alanlara atın. Parkımızı temiz tutalım.</li>
+                    <li><strong>Koşmayın:</strong> Hayvanat bahçesinde koşmak yasaktır. Kendi güvenliğiniz ve diğer ziyaretçilerin rahatı için yavaş yürüyün.</li>
+                    <li><strong>Sigara İçmeyin:</strong> Hayvanat bahçemizde sigara içmek yasaktır.</li>
+                    <li><strong>Yanıcı Maddeler Getirmeyin:</strong> Ateşle oynanması veya yanıcı maddeler getirilmesi kesinlikle yasaktır.</li>
+                    <li><strong>Hayvanat Bahçesi Kurallarına Uyun:</strong> Hayvanat bahçesi personelinin talimatlarına ve uyarı levhalarına mutlaka uyun.</li>
+                </ul>
+            </div>
+            <p class="lead">Hayvanat bahçemizde hoşça vakit geçirmenizi dileriz! 🦁🐒🦜</p>
+        </div>
+    </div>
+
+
+    <!-- Contact Section -->
+    <div id="contact" class="content-section mt-5 pt-5" style="text-align:left;">
+        <div class="container">
+            <h2 class="display-4">İletişim</h2>
+            <p class="lead">Sorularınız, önerileriniz ve geri bildirimleriniz için bize ulaşabilirsiniz:</p>
+
+
+            <p <a href="" class="text-white"><img src="~/Images/konum.png" alt=""> Hayvanat Bahçesi Caddesi No:123, Çukurova, Adana, Türkiye </a></p>
+            <p<a href="" class="text-white"><img src="~/Images/phone.png" alt=""> +90 (XXX) XXX-XXXX</a></p>
+            <p <a href="mailto:info@hayvanatbahcesi.com" class="text-white"><img src="~/Images/mail.png" alt=""> kimde info@hayvanatbahcesi.com</a></p>
+
+
+            <p class="lead mt-4">Sosyal Medya: Bizi sosyal medya hesaplarımızdan da takip edebilirsiniz:</p>
+
+            <p<a href="https://www.facebook.com" class="text-white"><img src="~/Images/fb.png" alt="">Facebook</a></p>
+            <p <a href="https://www.instagram.com" class="text-white"><img src="~/Images/Instagram.png" alt="">Instagram</a></p>
+            <p <a href="https://www.twitter.com" class="text-white"><img src="~/Images/twitter.png" alt="">Twitter</a></p>
+
+        </div>
+    </div>
+
+    <div id="whatsapp-icon">
+        <a href="https://wa.me/905301382529?text=Merhaba,%20bilgi%20almak%20istiyorum" target="_blank">
+            <img src="~/Images/WhatsApp.jpg" alt="WhatsApp ile İletişime Geç" />
+        </a>
+    </div>
+
+    <!-- Admin Login Section -->
+    <div id="admin-login" class="content-section mt-5 pt-5" style="font-weight:30%">
+        <div class="container">
+            <h2 class="display-4">Admin Giriş</h2>
+            <center>
+                @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+
+                    <!-- Hata Mesajı -->
+                    <div style="display: inline-block; list-style-type: none; padding-left: 0;">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Username, "Kullanıcı Adı", new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Password, "Şifre", new { @class = "form-label" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" value="Giriş" class="btn btn-success" />
+                    </div>
+                }
+            </center>
+        </div>
+    </div>
+    <footer style="background-color: #215E21; color: white; text-align: center; padding: 15px; font-family: Arial, sans-serif; font-size: 14px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 100%; position: fixed; bottom: 0; left: 0; z-index: 1000;">&copy; 2025 Sevimli Dostlar Doğa Parkı  <a href="https://orneklink.com" style="color: #fff; text-decoration: none; font-weight: bold;">Tüm Hakları Saklıdır.</a></footer>
+
+
+
+</body>
+</html>
